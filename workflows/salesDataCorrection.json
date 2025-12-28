@@ -1,0 +1,817 @@
+{
+  "name": "salesDataCorrection",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "=Sale Entry {{ $json.query.id }} Correction",
+        "formDescription": "Please correct the data in your sale entry.",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "date",
+              "fieldLabel": "Date",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldName": "rep",
+              "fieldLabel": "Sales Rep Name",
+              "placeholder": "e.g., Harvey Specter",
+              "defaultValue": "={{ $json.query.rep }}",
+              "requiredField": true
+            },
+            {
+              "fieldName": "email",
+              "fieldLabel": "Rep Email",
+              "fieldType": "email",
+              "placeholder": "e.g., harvey.s@shiine.ai",
+              "defaultValue": "={{ $json.query.email }}",
+              "requiredField": true
+            },
+            {
+              "fieldName": "client",
+              "fieldLabel": "Client Name",
+              "placeholder": "e.g., Shiine LLC",
+              "defaultValue": "={{ $json.query.client }}",
+              "requiredField": true
+            },
+            {
+              "fieldName": "amount",
+              "fieldLabel": "Sale Amount",
+              "fieldType": "number",
+              "placeholder": "(accepts numbers only)",
+              "defaultValue": "={{ $json.query.amount || 0 }}",
+              "requiredField": true
+            },
+            {
+              "fieldName": "note",
+              "fieldLabel": "Notes",
+              "placeholder": "(optional)",
+              "defaultValue": "={{ $json.query.note }}"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        0,
+        192
+      ],
+      "id": "35581cd4-0aeb-4ec1-b90d-7277b8f556b2",
+      "name": "On form submission",
+      "webhookId": "cccace9b-84ea-4f43-b7d9-a1d489a87c83"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1480843259,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit#gid=1480843259"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Transaction_ID": "={{ $json.query.id }}",
+            "Date": "={{ $json.body.date }}",
+            "Sales_Rep_Name": "={{ $json.body.rep }}",
+            "Rep_Email": "={{ $json.body.email }}",
+            "Client_Name": "={{ $json.body.client }}",
+            "Sale_Amount": "={{ $json.body.amount }}",
+            "Notes": "={{ $json.body.note }}",
+            "Correction_Status": "Updating"
+          },
+          "matchingColumns": [
+            "Transaction_ID"
+          ],
+          "schema": [
+            {
+              "id": "Transaction_ID",
+              "displayName": "Transaction_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sales_Rep_Name",
+              "displayName": "Sales_Rep_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rep_Email",
+              "displayName": "Rep_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Client_Name",
+              "displayName": "Client_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sale_Amount",
+              "displayName": "Sale_Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Analysis_Status",
+              "displayName": "Analysis_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Correction_Status",
+              "displayName": "Correction_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        192
+      ],
+      "id": "7c61e776-9ca5-46a0-9e48-cb8d56a000fa",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NtdAjThucdDvVDMU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1480843259,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit#gid=1480843259"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Transaction_ID",
+              "lookupValue": "={{ $('On form submission').item.json.query.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        192
+      ],
+      "id": "08301477-0c77-4719-aa86-c3d3123c2baf",
+      "name": "Get updated row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NtdAjThucdDvVDMU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=# Role\nYou are a diligent Sales Data Analyst.\n\n# Input Data\n{{ JSON.stringify($json) }}\n\n# Context\nThe Sales Rep has updated the previously problematic sale data.\n\n# Instructions\n1. Analyze the sales row for errors (empty fields, $0 amount, semantic conflicts).\n2. Determine if the status is \"VALID\" or \"INVALID\".\n3. If INVALID, draft a polite email to the rep explaining what the issue is. Do NOT include a subject. Do NOT request a correction. Do NOT sign the email.\n\n# Output Format\nYou must return ONLY a raw JSON object (no markdown, no ```json tags).\nFollow this exact schema:\n\n{\n  \"status\": \"VALID\" or \"INVALID\",\n  \"reason\": \"Brief explanation of the error\",\n  \"email_draft\": \"The email body content (only if INVALID)\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        896,
+        80
+      ],
+      "id": "f2605a15-d0c3-48e6-8e91-945bcc5b226c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        976,
+        304
+      ],
+      "id": "d92b3514-8987-4726-b9da-aa44962fcdba",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gq06pxVkFE5HbS8u",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93318868-3b40-4588-9968-43454f2b9233",
+              "name": "ai_decision",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, \"\")) }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1248,
+        192
+      ],
+      "id": "e6da18e8-69d9-4d1b-bd4c-d394698bac6d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.ai_decision.status }}",
+                    "rightValue": "VALID",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "56f8d073-9c23-418b-8a19-fbcd3fd711d5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "VALID"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "075183cb-dc6e-4ae4-949a-9b0e3a23a44b",
+                    "leftValue": "={{ $json.ai_decision.status }}",
+                    "rightValue": "INVALID",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "INVALID"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1472,
+        192
+      ],
+      "id": "c37aa316-14c0-49ec-be82-6e390dff5d2b",
+      "name": "Validity Switch"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $input.all().length }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    },
+                    "id": "881f5c40-a21d-4c5c-98b6-b0d98d1403f1"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "No rows found!"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "8a8040df-8652-4477-8c04-b8f2aeb68efb",
+                    "leftValue": "={{ $input.all().length }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Ideal"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2984e746-93a9-443b-9b49-92a3824aa1ff",
+                    "leftValue": "={{ $input.all().length }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gt"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Too many rows error!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        176
+      ],
+      "id": "fe222f20-077d-4630-ab6a-5056b1bab1b1",
+      "name": "Entry Switch"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.query.email }}",
+        "subject": "Error! Multiple sales with matching ID!",
+        "emailType": "text",
+        "message": "Multiple entries with the same Transaction_ID were found. Please address this issue immediately!",
+        "options": {
+          "ccList": "ondrakelda@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        480
+      ],
+      "id": "3432c652-2051-445a-b6ab-166cefb11e3c",
+      "name": "Send a \"too many entries\" message",
+      "webhookId": "3608a5cc-26cd-465c-b4ca-499e3ed2bbc0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GUvipl8F3rYta10J",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ondrakelda@gmail.com",
+        "subject": "ATTENTION - ERROR in workflow!",
+        "emailType": "text",
+        "message": "There has been an error in one of your workflows. Please handle this urgently!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        -112
+      ],
+      "id": "663f5e41-8457-4088-b20e-1b0c2d8aaf2c",
+      "name": "Send a \"missing entry\" message",
+      "webhookId": "9a8ea9cd-3893-42e0-9694-4860aa118a44",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GUvipl8F3rYta10J",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1480843259,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit#gid=1480843259"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Transaction_ID": "={{ $('Get updated row').item.json.Transaction_ID }}",
+            "Correction_Status": "Corrected"
+          },
+          "matchingColumns": [
+            "Transaction_ID"
+          ],
+          "schema": [
+            {
+              "id": "Transaction_ID",
+              "displayName": "Transaction_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sales_Rep_Name",
+              "displayName": "Sales_Rep_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Rep_Email",
+              "displayName": "Rep_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Client_Name",
+              "displayName": "Client_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sale_Amount",
+              "displayName": "Sale_Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Analysis_Status",
+              "displayName": "Analysis_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Correction_Status",
+              "displayName": "Correction_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1696,
+        96
+      ],
+      "id": "950e9d65-333f-4d94-a1a8-14ac51a08728",
+      "name": "Update correction status",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NtdAjThucdDvVDMU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get updated row').item.json.Email }}",
+        "subject": "=Invalid Correction of {{ $('Get updated row').item.json.Transaction_ID }}",
+        "emailType": "text",
+        "message": "={{ $json.ai_decision.email_draft }}\n\nPlease correct the sales data for transaction {{ $json.Transaction_ID }} via this link: https://ondrej01.app.n8n.cloud/form/cccace9b-84ea-4f43-b7d9-a1d489a87c83?id={{ encodeURIComponent($('Get updated row').item.json.Transaction_ID) }}&date={{ encodeURIComponent($('Get updated row').item.json.Date) }}&rep={{ encodeURIComponent($('Get updated row').item.json.Sales_Rep_Name) }}&email={{ encodeURIComponent($('Get updated row').item.json.Rep_Email) }}&client={{ encodeURIComponent($('Get updated row').item.json.Client_Name) }}&amount={{ encodeURIComponent($('Get updated row').item.json.Sale_Amount) }}&note={{ encodeURIComponent($('Get updated row').item.json.Notes) }}  Thanks for your help, Gemma - Sales Data Analyst",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1696,
+        288
+      ],
+      "id": "c15ff489-57c6-4f04-94ca-6c22de519914",
+      "name": "Send an \"invalid correction\" message",
+      "webhookId": "067c1833-b7f0-4ed3-85e1-52e365990fe7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GUvipl8F3rYta10J",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get updated row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get updated row": {
+      "main": [
+        [
+          {
+            "node": "Entry Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Validity Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validity Switch": {
+      "main": [
+        [
+          {
+            "node": "Update correction status",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send an \"invalid correction\" message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entry Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a \"missing entry\" message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a \"too many entries\" message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "898a6c66-edcc-45f8-8865-e8693a3580c7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eb7378612778d6e94b00c525b32fba1edc0b3bbee0e820cd7f7ddf749ae82ec8"
+  },
+  "id": "odegiAhfKsIFQbNZ",
+  "tags": []
+}

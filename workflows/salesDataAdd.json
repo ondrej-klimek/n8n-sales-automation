@@ -1,0 +1,282 @@
+{
+  "name": "salesDataAdd",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "New Sales Entry",
+        "formDescription": "This form adds a sales entry",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "Transaction_ID",
+              "fieldType": "hiddenField"
+            },
+            {
+              "fieldName": "Date",
+              "fieldLabel": "Date",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Sales_Rep_Name",
+              "fieldLabel": "Your Name",
+              "placeholder": "e.g., Harvey Specter",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Rep_Email",
+              "fieldLabel": "Your Email",
+              "fieldType": "email",
+              "placeholder": "e.g., harvey.s@shiine.ai",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Client_Name",
+              "fieldLabel": "Client Name",
+              "placeholder": "e.g., Shiine LLC",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Sale_Amount",
+              "fieldLabel": "Sale Amount",
+              "fieldType": "number",
+              "placeholder": "(accepts numbers only)",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Notes",
+              "fieldLabel": "Notes",
+              "placeholder": "(optional)"
+            },
+            {
+              "fieldName": "Analysis_Status",
+              "fieldType": "hiddenField",
+              "fieldValue": "Pending"
+            },
+            {
+              "fieldName": "Correction_Status",
+              "fieldType": "hiddenField"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        0,
+        -64
+      ],
+      "id": "8dd53b59-0834-43b5-9a0c-bf4419634283",
+      "name": "On form submission",
+      "webhookId": "4aaa339a-f12c-4fdc-8642-68c4fe17f745"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1480843259,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit#gid=1480843259"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Transaction_ID": "=TX-{{ parseInt($('Get existing sales').last().json.Transaction_ID.substring(3)) + 1 }}",
+            "Date": "={{ $('On form submission').item.json.Date }}",
+            "Sales_Rep_Name": "={{ $('On form submission').item.json.Sales_Rep_Name }}",
+            "Rep_Email": "={{ $('On form submission').item.json.Rep_Email }}",
+            "Client_Name": "={{ $('On form submission').item.json.Client_Name }}",
+            "Sale_Amount": "={{ $('On form submission').item.json.Sale_Amount }}",
+            "Notes": "={{ $('On form submission').item.json.Notes }}",
+            "Analysis_Status": "={{ $('On form submission').item.json.Analysis_Status }}",
+            "Correction_Status": "={{ $('On form submission').item.json.Correction_Status }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Transaction_ID",
+              "displayName": "Transaction_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sales_Rep_Name",
+              "displayName": "Sales_Rep_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rep_Email",
+              "displayName": "Rep_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Client_Name",
+              "displayName": "Client_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sale_Amount",
+              "displayName": "Sale_Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Analysis_Status",
+              "displayName": "Analysis_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Correction_Status",
+              "displayName": "Correction_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        32
+      ],
+      "id": "8f02d0c0-261a-45bf-8ea6-0f4f2c867bed",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NtdAjThucdDvVDMU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1480843259,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nENGIiE6nyPw5Mo4jUALuVtXHsDcyNa9lSOV5MD06_k/edit#gid=1480843259"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -160
+      ],
+      "id": "d74aab85-6e97-436e-a89c-aed2a9e6fa13",
+      "name": "Get existing sales",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NtdAjThucdDvVDMU",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Get existing sales",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get existing sales": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "63b7cf6d-ec1c-49fc-a21c-769bac32cd91",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eb7378612778d6e94b00c525b32fba1edc0b3bbee0e820cd7f7ddf749ae82ec8"
+  },
+  "id": "qwdInkZN2CwLVujm",
+  "tags": []
+}

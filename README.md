@@ -2,8 +2,7 @@
 
 An end-to-end automation system that validates sales data using AI, detects anomalies, and manages a "Human-in-the-Loop" correction process via dynamic forms. Built with **n8n**, **Google Gemini**, and **Google Sheets**.
 
-![Project Header Image](https://placeholder-for-your-main-screenshot.png)
-*(Add a screenshot of your 3 workflows here)*
+![Workflow Diagram](src/sales_automation-overviewX.png)
 
 ## 🚀 The Problem
 Sales teams often manually enter data, leading to critical errors like missing amounts ($0 sales) or missing fields. Manual auditing is slow, and email back-and-forth to fix errors creates data silos and version conflicts.
@@ -72,7 +71,7 @@ Implemented a "Circuit Breaker" pattern (Step 0 checks) to ensure the AI doesn't
 
 ## 🎥 Demo
 
-[Link to Loom Video or GIF showing the process]
+[Link to Loom Video of Demo](https://www.loom.com/share/e989e5c625c5422f9b5d476fc1a55ef8)
 
 ---
 ## License ##

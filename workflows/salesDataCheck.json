@@ -6,9 +6,7 @@
         "pollTimes": {
           "item": [
             {
-              "mode": "everyX",
-              "value": 5,
-              "unit": "minutes"
+              "mode": "everyMinute"
             }
           ]
         },
@@ -206,7 +204,7 @@
         "sendTo": "={{ $('Filter').item.json.Rep_Email }}",
         "subject": "=Correction Request - {{ $('Filter').item.json.Transaction_ID }}",
         "emailType": "text",
-        "message": "={{ $json.ai_decision.email_draft }}\n\nPlease correct the sales data for transaction {{ $('Filter').item.json.Transaction_ID }} via this link ASAP:\nhttps://ondrej01.app.n8n.cloud/form/cccace9b-84ea-4f43-b7d9-a1d489a87c83?id={{ encodeURIComponent($('Filter').item.json.Transaction_ID) }}&date={{ encodeURIComponent($('Filter').item.json.Date) }}&rep={{ encodeURIComponent($('Filter').item.json.Sales_Rep_Name) }}&email={{ encodeURIComponent($('Filter').item.json.Rep_Email) }}&client={{ encodeURIComponent($('Filter').item.json.Client_Name) }}&amount={{ encodeURIComponent($('Filter').item.json.Sale_Amount) }}&note={{ encodeURIComponent($('Filter').item.json.Notes) }}\n\nThanks for your help,\nGemma - Sales Data Analyst",
+        "message": "={{ $json.ai_decision.email_draft }}\n\nPlease correct the sales data for transaction {{ $('Filter').item.json.Transaction_ID }} via this link ASAP:\nhttps://ondrej01.app.n8n.cloud/form/51a13a09-14bd-4589-b0e7-47a5c785a426?id={{ encodeURIComponent($('Filter').item.json.Transaction_ID) }}&date={{ encodeURIComponent($('Filter').item.json.Date) }}&rep={{ encodeURIComponent($('Filter').item.json.Sales_Rep_Name) }}&email={{ encodeURIComponent($('Filter').item.json.Rep_Email) }}&client={{ encodeURIComponent($('Filter').item.json.Client_Name) }}&amount={{ encodeURIComponent($('Filter').item.json.Sale_Amount) }}&note={{ encodeURIComponent($('Filter').item.json.Notes) }}\n\nThanks for your help,\nGemma - Sales Data Analyst",
         "options": {
           "appendAttribution": false
         }
@@ -616,7 +614,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "e1919a44-fc43-4363-8f07-fccd442a4c59",
+  "versionId": "b304baee-3092-4535-bbed-19916cde1286",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "eb7378612778d6e94b00c525b32fba1edc0b3bbee0e820cd7f7ddf749ae82ec8"

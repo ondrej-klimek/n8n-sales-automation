@@ -3,71 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "formTitle": "=Sale Entry {{ $json.query.id }} Correction",
-        "formDescription": "Please correct the data in your sale entry.",
-        "formFields": {
-          "values": [
-            {
-              "fieldName": "date",
-              "fieldLabel": "Date",
-              "fieldType": "date",
-              "requiredField": true
-            },
-            {
-              "fieldName": "rep",
-              "fieldLabel": "Sales Rep Name",
-              "placeholder": "e.g., Harvey Specter",
-              "defaultValue": "={{ $json.query.rep }}",
-              "requiredField": true
-            },
-            {
-              "fieldName": "email",
-              "fieldLabel": "Rep Email",
-              "fieldType": "email",
-              "placeholder": "e.g., harvey.s@shiine.ai",
-              "defaultValue": "={{ $json.query.email }}",
-              "requiredField": true
-            },
-            {
-              "fieldName": "client",
-              "fieldLabel": "Client Name",
-              "placeholder": "e.g., Shiine LLC",
-              "defaultValue": "={{ $json.query.client }}",
-              "requiredField": true
-            },
-            {
-              "fieldName": "amount",
-              "fieldLabel": "Sale Amount",
-              "fieldType": "number",
-              "placeholder": "(accepts numbers only)",
-              "defaultValue": "={{ $json.query.amount || 0 }}",
-              "requiredField": true
-            },
-            {
-              "fieldName": "note",
-              "fieldLabel": "Notes",
-              "placeholder": "(optional)",
-              "defaultValue": "={{ $json.query.note }}"
-            }
-          ]
-        },
-        "responseMode": "lastNode",
-        "options": {
-          "appendAttribution": false
-        }
-      },
-      "type": "n8n-nodes-base.formTrigger",
-      "typeVersion": 2.4,
-      "position": [
-        0,
-        192
-      ],
-      "id": "35581cd4-0aeb-4ec1-b90d-7277b8f556b2",
-      "name": "On form submission",
-      "webhookId": "cccace9b-84ea-4f43-b7d9-a1d489a87c83"
-    },
-    {
-      "parameters": {
         "operation": "update",
         "documentId": {
           "__rl": true,
@@ -86,13 +21,13 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Transaction_ID": "={{ $json.query.id }}",
-            "Date": "={{ $json.body.date }}",
-            "Sales_Rep_Name": "={{ $json.body.rep }}",
-            "Rep_Email": "={{ $json.body.email }}",
-            "Client_Name": "={{ $json.body.client }}",
-            "Sale_Amount": "={{ $json.body.amount }}",
-            "Notes": "={{ $json.body.note }}",
+            "Transaction_ID": "={{ $json.formQueryParameters.id }}",
+            "Date": "={{ $json.date }}",
+            "Sales_Rep_Name": "={{ $json.rep }}",
+            "Rep_Email": "={{ $json.email }}",
+            "Client_Name": "={{ $json.client }}",
+            "Sale_Amount": "={{ $json.amount }}",
+            "Notes": "={{ $json.note }}",
             "Correction_Status": "Updating"
           },
           "matchingColumns": [
@@ -234,7 +169,7 @@
           "values": [
             {
               "lookupColumn": "Transaction_ID",
-              "lookupValue": "={{ $('On form submission').item.json.query.id }}"
+              "lookupValue": "={{ $('On form submission').item.json.formQueryParameters.id }}"
             }
           ]
         },
@@ -258,7 +193,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=# Role\nYou are a diligent Sales Data Analyst.\n\n# Input Data\n{{ JSON.stringify($json) }}\n\n# Context\nThe Sales Rep has updated the previously problematic sale data.\n\n# Instructions\n1. Analyze the sales row for errors (empty fields, $0 amount, semantic conflicts).\n2. Determine if the status is \"VALID\" or \"INVALID\".\n3. If INVALID, draft a polite email to the rep explaining what the issue is. Do NOT include a subject. Do NOT request a correction. Do NOT sign the email.\n\n# Output Format\nYou must return ONLY a raw JSON object (no markdown, no ```json tags).\nFollow this exact schema:\n\n{\n  \"status\": \"VALID\" or \"INVALID\",\n  \"reason\": \"Brief explanation of the error\",\n  \"email_draft\": \"The email body content (only if INVALID)\"\n}",
+        "text": "=# Role\nYou are a diligent Sales Data Analyst.\n\n# Input Data\n{{ JSON.stringify($json) }}\n\n# Context\nThe Sales Rep has updated the previously problematic sale data.\n\n# Instructions\n1. Analyze the sales row for errors (empty fields, $0 amount, semantic conflicts). IGNORE Analysis_Status and Correction_Status!\n2. Determine if the status is \"VALID\" or \"INVALID\".\n3. If INVALID, draft a polite email to the rep explaining what the issue is. Do NOT include a subject. Do NOT request a correction. Do NOT sign the email.\n\n# Output Format\nYou must return ONLY a raw JSON object (no markdown, no ```json tags).\nFollow this exact schema:\n\n{\n  \"status\": \"VALID\" or \"INVALID\",\n  \"reason\": \"Brief explanation of the error\",\n  \"email_draft\": \"The email body content (only if INVALID)\"\n}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -667,10 +602,10 @@
     },
     {
       "parameters": {
-        "sendTo": "={{ $('Get updated row').item.json.Email }}",
+        "sendTo": "={{ $('Entry Switch').item.json.Rep_Email }}",
         "subject": "=Invalid Correction of {{ $('Get updated row').item.json.Transaction_ID }}",
         "emailType": "text",
-        "message": "={{ $json.ai_decision.email_draft }}\n\nPlease correct the sales data for transaction {{ $json.Transaction_ID }} via this link: https://ondrej01.app.n8n.cloud/form/cccace9b-84ea-4f43-b7d9-a1d489a87c83?id={{ encodeURIComponent($('Get updated row').item.json.Transaction_ID) }}&date={{ encodeURIComponent($('Get updated row').item.json.Date) }}&rep={{ encodeURIComponent($('Get updated row').item.json.Sales_Rep_Name) }}&email={{ encodeURIComponent($('Get updated row').item.json.Rep_Email) }}&client={{ encodeURIComponent($('Get updated row').item.json.Client_Name) }}&amount={{ encodeURIComponent($('Get updated row').item.json.Sale_Amount) }}&note={{ encodeURIComponent($('Get updated row').item.json.Notes) }}  Thanks for your help, Gemma - Sales Data Analyst",
+        "message": "={{ $json.ai_decision.email_draft }}\n\nPlease correct the sales data for transaction {{ $('Entry Switch').item.json.Transaction_ID }} via this link: https://ondrej01.app.n8n.cloud/form/51a13a09-14bd-4589-b0e7-47a5c785a426?id={{ encodeURIComponent($('Get updated row').item.json.Transaction_ID) }}&date={{ encodeURIComponent($('Get updated row').item.json.Date) }}&rep={{ encodeURIComponent($('Get updated row').item.json.Sales_Rep_Name) }}&email={{ encodeURIComponent($('Get updated row').item.json.Rep_Email) }}&client={{ encodeURIComponent($('Get updated row').item.json.Client_Name) }}&amount={{ encodeURIComponent($('Get updated row').item.json.Sale_Amount) }}&note={{ encodeURIComponent($('Get updated row').item.json.Notes) }}  Thanks for your help, Gemma - Sales Data Analyst",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -688,21 +623,75 @@
           "name": "Gmail account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "formTitle": "=Sale Entry Correction",
+        "formDescription": "Please correct the data in your sale entry.",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "date",
+              "fieldLabel": "Date",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldName": "rep",
+              "fieldLabel": "Sales Rep Name",
+              "placeholder": "e.g., Harvey Specter",
+              "defaultValue": "=",
+              "requiredField": true
+            },
+            {
+              "fieldName": "email",
+              "fieldLabel": "Rep Email",
+              "fieldType": "email",
+              "placeholder": "e.g., harvey.s@shiine.ai",
+              "defaultValue": "=",
+              "requiredField": true
+            },
+            {
+              "fieldName": "client",
+              "fieldLabel": "Client Name",
+              "placeholder": "e.g., Shiine LLC",
+              "defaultValue": "=",
+              "requiredField": true
+            },
+            {
+              "fieldName": "amount",
+              "fieldLabel": "Sale Amount",
+              "fieldType": "number",
+              "placeholder": "(accepts numbers only)",
+              "defaultValue": "=",
+              "requiredField": true
+            },
+            {
+              "fieldName": "note",
+              "fieldLabel": "Notes",
+              "placeholder": "(optional)",
+              "defaultValue": "="
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        0,
+        192
+      ],
+      "id": "df48a5c3-e96d-4b78-9f0d-414c003039d3",
+      "name": "On form submission",
+      "webhookId": "51a13a09-14bd-4589-b0e7-47a5c785a426"
     }
   ],
   "pinData": {},
   "connections": {
-    "On form submission": {
-      "main": [
-        [
-          {
-            "node": "Update row in sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Update row in sheet": {
       "main": [
         [
@@ -800,6 +789,17 @@
           }
         ]
       ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -807,7 +807,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "898a6c66-edcc-45f8-8865-e8693a3580c7",
+  "versionId": "7ee761ab-b65b-48d8-91d7-3878c3c52b67",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "eb7378612778d6e94b00c525b32fba1edc0b3bbee0e820cd7f7ddf749ae82ec8"

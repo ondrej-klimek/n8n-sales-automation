@@ -77,5 +77,11 @@ Implemented a "Circuit Breaker" pattern (Step 0 checks) to ensure the AI doesn't
 ---
 ## License ##
 
-This project is free to use for personal and educational purposes. Commercial use is strictly prohibited without my written permission. If you would like to use this in your business, please contact me at klimekondrej01@gmail.com . IMPORTANT - in the subject, include the following words and phrases: "permission", "AI Sales Auditor" .
-*Created by Ondrej Klimek*
+**© 2025 Ondrej Klimek. All Rights Reserved.**
+
+This project is free to use for personal, educational, and portfolio review purposes.
+
+**Commercial use, redistribution, or modification for business purposes is strictly prohibited without my written permission.**
+
+If you would like to use this workflow in your business or hire me to build a similar solution, please contact me at: **klimekondrej01@gmail.com**
+**IMPORTANT** - in the subject, include the following words and phrases: *permission*, *AI Sales Automation*

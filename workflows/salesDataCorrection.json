@@ -474,7 +474,7 @@
         "emailType": "text",
         "message": "Multiple entries with the same Transaction_ID were found. Please address this issue immediately!",
         "options": {
-          "ccList": "ondrakelda@gmail.com"
+          "ccList": "example@email.com"
         }
       },
       "type": "n8n-nodes-base.gmail",
@@ -495,7 +495,7 @@
     },
     {
       "parameters": {
-        "sendTo": "ondrakelda@gmail.com",
+        "sendTo": "example@email.com",
         "subject": "ATTENTION - ERROR in workflow!",
         "emailType": "text",
         "message": "There has been an error in one of your workflows. Please handle this urgently!",

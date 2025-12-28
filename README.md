@@ -75,7 +75,7 @@ Implemented a "Circuit Breaker" pattern (Step 0 checks) to ensure the AI doesn't
 [Link to Loom Video or GIF showing the process]
 
 ---
-## Licens ##
+## License ##
 
 This project is free to use for personal and educational purposes. Commercial use is strictly prohibited without my written permission. If you would like to use this in your business, please contact me at klimekondrej01@gmail.com . IMPORTANT - in the subject, include the following words and phrases: "permission", "AI Sales Auditor" .
 *Created by Ondrej Klimek*

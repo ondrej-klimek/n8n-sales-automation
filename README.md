@@ -2,6 +2,8 @@
 
 An end-to-end automation system that validates sales data using AI, detects anomalies, and manages a "Human-in-the-Loop" correction process via dynamic forms. Built with **n8n**, **Google Gemini**, and **Google Sheets**.
 
+> **⚡ Short on time? [Jump straight to the 2-minute Video Demo 🎥](#demo-video)**
+
 ![Workflow Diagram](src/sales_automation-overviewX.png)
 
 ## 🚀 The Problem
@@ -69,6 +71,7 @@ Implemented a "Circuit Breaker" pattern (Step 0 checks) to ensure the AI doesn't
     * Connect your Google & Gmail credentials.
     * Update the "Auditor" email node with the URL from your "Corrector" form.
 
+<a id="demo-video"></a>
 ## 🎥 Demo
 
 [Link to Loom Video of Demo](https://www.loom.com/share/e989e5c625c5422f9b5d476fc1a55ef8)
